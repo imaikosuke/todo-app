@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# Todo-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+シンプルなTodoリスト。
+React + TypeScript + Vite の基本を学ぶために開発しています。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 機能
 
-## Expanding the ESLint configuration
+タスクの追加: ユーザーは新しいタスクをリストに追加できます。各タスクには、タイトルと完了/未完了のステータスがあります。
+タスクの表示: 追加されたタスクは一覧で表示されます。どのタスクがまだ未完了かを確認できます。
+タスクの完了: 完了したタスクは未完了のタスク一覧から完了タスク一覧に移動されます。
+タスクの削除: 不要になったタスクは、リストから削除することができます。
+タスクの編集: 未完了のタスクに限り、タイトルを編集することができます。完了したタスクは編集できません。
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 現在実装している拡張予定の機能
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+タスクに期限日を設定できる機能の追加。
+タスクに優先度をつけられる機能の実装。
+ユーザー認証を導入し、個人のタスクリストを管理できるようにする。
