@@ -9,12 +9,7 @@ type ToDoListProps = {
   onEdit: (id: number, title: string) => void;
 };
 
-export const ToDoList: React.FC<ToDoListProps> = ({
-  todos,
-  onToggleCompleted,
-  onDelete,
-  onEdit,
-}) => {
+export const ToDoList: React.FC<ToDoListProps> = ({ todos, onToggleCompleted, onDelete, onEdit }) => {
   return (
     <div>
       {todos.map((todo) => (

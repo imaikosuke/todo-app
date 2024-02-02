@@ -7,9 +7,7 @@ const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
 
-  const addTodo = (title: string) => {
-    if (title == '') return;
-    const newTodo = { id: Date.now(), title, completed: false };
+  const addTodo = (newTodo: Todo) => {
     setTodos([...todos, newTodo]);
   };
 
