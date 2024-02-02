@@ -23,8 +23,8 @@ export const AddToDo: React.FC<{ onAdd: (todo: Todo) => void }> = ({ onAdd }) =>
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)}>
         <option value="">カテゴリーを選択</option>
-        <option value="work">仕事</option>
-        <option value="private">個人</option>
+        <option value="仕事">仕事</option>
+        <option value="個人">個人</option>
         // ここに他のカテゴリーオプションを追加
       </select>
       <button type="submit">追加</button>
