@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Todo } from '../interface';
 
-export const AddToDo: React.FC<{ onAdd: (todo: Todo) => void }> = ({ onAdd }) => {
+type AddToDoProps = {
+  onAdd: (todo: Todo) => void;
+  categories: string[];
+};
+
+export const AddToDo: React.FC<AddToDoProps> = ({ onAdd, categories }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
 
@@ -23,9 +28,11 @@ export const AddToDo: React.FC<{ onAdd: (todo: Todo) => void }> = ({ onAdd }) =>
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)}>
         <option value="">カテゴリーを選択</option>
-        <option value="仕事">仕事</option>
-        <option value="個人">個人</option>
-        // ここに他のカテゴリーオプションを追加
+        {categories.map((cat, index) => (
+          <option key={index} value={cat}>
+            {cat}
+          </option>
+        ))}
       </select>
       <button type="submit">追加</button>
     </form>
