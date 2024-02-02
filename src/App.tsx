@@ -8,6 +8,12 @@ const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [categories, setCategorys] = useState<string[]>(['仕事', '個人']);
+  const [filter, setFilter] = useState<string>('');
+
+  const filteredTodos = todos.filter((todo) => filter === '' || todo.category === filter);
+  const filteredCompletedTodos = completedTodos.filter(
+    (todo) => filter === '' || todo.category === filter
+  );
 
   const addTodo = (newTodo: Todo) => {
     setTodos([...todos, newTodo]);
@@ -51,22 +57,30 @@ const App: React.FC = () => {
   return (
     <div>
       <h1>ToDoリスト</h1>
-      <AddToDo onAdd={addTodo} categories={categories}/>
-      <CategoryManagement 
+      <AddToDo onAdd={addTodo} categories={categories} />
+      <CategoryManagement
         categories={categories}
         onAddCategory={addCategory}
         onDeleteCategory={deleteCategory}
       />
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="">すべてのカテゴリー</option>
+        {categories.map((category, index) => (
+          <option key={index} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
       <h2>未完了のタスク</h2>
       <ToDoList
-        todos={todos}
+        todos={filteredTodos}
         onToggleCompleted={toggleCompleted}
         onDelete={deleteTodo}
         onEdit={editTodo}
       />
       <h2>完了したタスク</h2>
       <ToDoList
-        todos={completedTodos}
+        todos={filteredCompletedTodos}
         onToggleCompleted={toggleCompleted}
         onDelete={deleteTodo}
         onEdit={editTodo}
