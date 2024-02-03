@@ -9,10 +9,18 @@ const App: React.FC = () => {
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [categories, setCategorys] = useState<string[]>(['仕事', '個人']);
   const [filter, setFilter] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredTodos = todos.filter((todo) => filter === '' || todo.category === filter);
+  const filteredTodos = todos.filter(
+    (todo) =>
+      (filter === '' || todo.category === filter) &&
+      todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const filteredCompletedTodos = completedTodos.filter(
-    (todo) => filter === '' || todo.category === filter
+    (todo) =>
+      (filter === '' || todo.category === filter) &&
+      todo.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const addTodo = (newTodo: Todo) => {
@@ -71,6 +79,12 @@ const App: React.FC = () => {
           </option>
         ))}
       </select>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="タスクを検索"
+      />
       <h2>未完了のタスク</h2>
       <ToDoList
         todos={filteredTodos}
