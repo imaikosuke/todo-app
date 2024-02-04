@@ -8,12 +8,7 @@ type ToDoItemProps = {
   onEdit: (id: number, title: string) => void;
 };
 
-export const ToDoItem: React.FC<ToDoItemProps> = ({
-  todo,
-  onToggleCompleted,
-  onDelete,
-  onEdit,
-}) => {
+export const ToDoItem: React.FC<ToDoItemProps> = ({ todo, onToggleCompleted, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.title);
 
@@ -33,7 +28,9 @@ export const ToDoItem: React.FC<ToDoItemProps> = ({
       {isEditing ? (
         <input type="text" value={editText} onChange={handleChange} />
       ) : (
-        <span>{todo.title}</span>
+        <span>
+          {todo.title} - {todo.category || 'カテゴリーなし'}
+        </span>
       )}
       <button onClick={() => onToggleCompleted(todo.id)} disabled={isEditing}>
         {todo.completed ? '未完了' : '完了'}
