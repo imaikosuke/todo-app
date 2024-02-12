@@ -1,19 +1,34 @@
 import React, { useState } from 'react';
-import { Todo } from '../interface';
+// import { Todo } from '../interface';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase';
+import { serverTimestamp } from 'firebase/firestore';
+import { auth } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type AddToDoProps = {
-  onAdd: (todo: Todo) => void;
   categories: string[];
 };
 
-export const AddToDo: React.FC<AddToDoProps> = ({ onAdd, categories }) => {
+const addTodoToFirestore = async (title: string, category: string, userId: string) => {
+  await addDoc(collection(db, 'todos'), {
+    title,
+    completed: false,
+    category,
+    userId,
+    createdAt: serverTimestamp(),
+  });
+};
+
+export const AddToDo: React.FC<AddToDoProps> = ({ categories }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
+  const [user] = useAuthState(auth);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!title) return;
-    onAdd({ id: Date.now(), title, completed: false, category });
+    if (!title || !user) return;
+    await addTodoToFirestore(title, category, user.uid);
     setTitle('');
     setCategory('');
   };
