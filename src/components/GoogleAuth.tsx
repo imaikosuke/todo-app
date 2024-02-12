@@ -56,7 +56,7 @@ const GoogleAuth = () => {
       <SignOutButton />
       <App />
     </>
-  )
-}
+  );
+};
 
 export default GoogleAuth;
