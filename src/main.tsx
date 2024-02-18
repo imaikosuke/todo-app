@@ -1,10 +1,16 @@
+// src/main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import GoogleAuth from './components/GoogleAuth.tsx';
+import { AppRoutes } from './AppRouter';
+import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
   <React.StrictMode>
-    <GoogleAuth />
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   </React.StrictMode>
 );
