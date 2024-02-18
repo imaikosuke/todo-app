@@ -1,3 +1,4 @@
+// src/components/TodoList.tsx
 import { useEffect, useState } from 'react';
 import { ToDoItem } from './ToDoItem';
 import { Todo } from '../interface';
@@ -26,7 +27,6 @@ export const ToDoList = () => {
   }, [user]);
 
   const onToggleCompleted = async (id: string) => {
-    // ToDoの完了状態を切り替える
     const todoRef = doc(db, 'todos', id);
     const todo = todos.find((todo) => todo.id === id);
     if (todo) {
@@ -35,14 +35,8 @@ export const ToDoList = () => {
   };
 
   const onDelete = async (id: string) => {
-    // ToDoを削除する
     await deleteDoc(doc(db, 'todos', id));
   };
-
-  // const onEdit = async (id: string, newTitle: string) => {
-  //   const todoRef = doc(db, 'todos', id);
-  //   await updateDoc(todoRef, { title: newTitle });
-  // };
 
   return (
     <div>

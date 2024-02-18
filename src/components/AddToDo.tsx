@@ -1,5 +1,5 @@
+// src/components/AddTodo.tsx
 import React, { useState } from 'react';
-// import { Todo } from '../interface';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { serverTimestamp } from 'firebase/firestore';
@@ -34,14 +34,19 @@ export const AddToDo: React.FC<AddToDoProps> = ({ categories }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="p-4 border rounded-md shadow-sm bg-white">
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="タスク名"
+        className="border p-2 rounded-md w-full"
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        className="mt-2 border p-2 rounded-md w-full"
+      >
         <option value="">カテゴリーを選択</option>
         {categories.map((cat, index) => (
           <option key={index} value={cat}>
@@ -49,7 +54,9 @@ export const AddToDo: React.FC<AddToDoProps> = ({ categories }) => {
           </option>
         ))}
       </select>
-      <button type="submit">追加</button>
+      <button type="submit" className="mt-2 py-1 px-3 rounded-md bg-blue-500 text-white w-full">
+        タスクを追加
+      </button>
     </form>
   );
 };

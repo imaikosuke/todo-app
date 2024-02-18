@@ -1,3 +1,4 @@
+// src/components/TodoItem.tsx
 import React, { useState } from 'react';
 import { Todo } from '../interface';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -26,21 +27,39 @@ export const ToDoItem: React.FC<ToDoItemProps> = ({ todo, onToggleCompleted, onD
   };
 
   return (
-    <div>
+    <div className="p-4 border rounded-md shadow-sm bg-white">
       {isEditing ? (
-        <input type="text" value={editText} onChange={(e) => handleChange(e)} />
+        <input
+          type="text"
+          value={editText}
+          onChange={(e) => handleChange(e)}
+          className="border p-2 rounded-md"
+        />
       ) : (
-        <span>
+        <span className="text-lg">
           {todo.title} - {todo.category || 'None'}
         </span>
       )}
-      <button onClick={() => onToggleCompleted(todo.id)} disabled={isEditing}>
+      <button
+        onClick={() => onToggleCompleted(todo.id)}
+        disabled={isEditing}
+        className="ml-2 py-1 px-3 rounded-md bg-blue-500 text-white"
+      >
         {todo.completed ? '未完了' : '完了'}
       </button>
       {!todo.completed && (
-        <button onClick={() => handleEdit(editText)}>{isEditing ? '保存' : '編集'}</button>
+        <button
+          onClick={() => handleEdit(editText)}
+          className="ml-2 py-1 px-3 rounded-md bg-green-500 text-white"
+        >
+          {isEditing ? '保存' : '編集'}
+        </button>
       )}
-      <button onClick={() => onDelete(todo.id)} disabled={isEditing}>
+      <button
+        onClick={() => onDelete(todo.id)}
+        disabled={isEditing}
+        className="ml-2 py-1 px-3 rounded-md bg-red-500 text-white"
+      >
         削除
       </button>
     </div>
