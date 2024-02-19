@@ -3,7 +3,11 @@
 import { Link } from 'react-router-dom';
 import LogoutButton from '@/components/LogoutButton';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isSignedIn: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isSignedIn }) => {
   return (
     <div className="w-64 bg-gray-700 text-white p-4">
       <h2 className="text-xl font-bold mb-4">Menu</h2>
@@ -19,9 +23,12 @@ const Sidebar: React.FC = () => {
           </Link>
         </li>
       </ul>
-      <div className="mt-4">
+      {isSignedIn && (
+        <div className="mt-4">
         <LogoutButton />
       </div>
+      )}
+      
     </div>
   );
 };

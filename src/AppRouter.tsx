@@ -34,7 +34,7 @@ export const AppRoutes = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-grow">
-        <Sidebar />
+        <Sidebar isSignedIn={isSignedIn}/>
         <Routes>
           <Route
             path="/"
