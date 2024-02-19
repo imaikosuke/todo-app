@@ -2,8 +2,8 @@
 
 const Footer = () => {
   return (
-    <footer className="text-center text-sm text-gray-500 py-4">
-      <p>&copy; 2024 Todoリスト by Imai Kosuke</p>
+    <footer className="flex justify-center text-center text-sm text-gray-500 py-4">
+      <p className="pr-10">&copy; 2024 Todoリスト by Imai Kosuke</p>
       <p>
         <a
           href="https://github.com/imaikosuke/todo-app"

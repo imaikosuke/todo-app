@@ -9,13 +9,15 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ categories }) => {
   return (
-    <>
-      <div className="p-4 bg-gray-100 min-h-screen flex-grow">
-        <h2 className="pb-4 mt-4 text-xl font-bold mb-2">タスク一覧</h2>
+    <div className="p-4 border shadow-sm bg-gray-100 flex-grow">
+      <h2 className="pb-4 mt-4 text-xl font-bold mb-2">タスク一覧</h2>
+      <div className="mb-5">
         <AddToDo categories={categories} />
+      </div>
+      <div className="h-[55vh] overflow-auto">
         <ToDoList />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -31,10 +31,10 @@ export const AppRoutes = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen overflow-hidden flex flex-col">
       <Header />
       <div className="flex flex-grow">
-        <Sidebar isSignedIn={isSignedIn}/>
+        <Sidebar isSignedIn={isSignedIn} />
         <Routes>
           <Route
             path="/"
