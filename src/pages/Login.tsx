@@ -9,7 +9,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-grow items-center justify-center h-screen bg-gray-100">
       <div className="p-8 bg-white rounded shadow-md text-center">
         <h1 className="text-2xl font-bold mb-4">Todoリスト</h1>
         <p className="mb-4">始めるにはGoogleアカウントによるログインが必要です。</p>
