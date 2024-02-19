@@ -1,36 +1,20 @@
 // src/pages/App.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { AddToDo } from '../components/AddToDo';
 import { ToDoList } from '../components/ToDoList';
-import { CategoryManagement } from '../components/CategoryManagement';
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
 
-const App: React.FC = () => {
-  const [categories, setCategorys] = useState<string[]>(['仕事', '個人']);
+interface AppProps {
+  categories: string[];
+}
 
-  const addCategory = (category: string) => {
-    setCategorys((prev) => [...prev, category]);
-  };
-
-  const deleteCategory = (category: string) => {
-    setCategorys((prev) => prev.filter((cat) => cat !== category));
-  };
-
+const App: React.FC<AppProps> = ({ categories }) => {
   return (
     <>
-      <Header />
-      <div className="p-4 bg-gray-100 min-h-screen">
+      <div className="p-4 bg-gray-100 min-h-screen flex-grow">
+        <h2 className="pb-4 mt-4 text-xl font-bold mb-2">タスク一覧</h2>
         <AddToDo categories={categories} />
-        <CategoryManagement
-          categories={categories}
-          onAddCategory={addCategory}
-          onDeleteCategory={deleteCategory}
-        />
-        <h2 className="mt-4 text-xl font-bold mb-2">タスク</h2>
         <ToDoList />
       </div>
-      <Footer />
     </>
   );
 };

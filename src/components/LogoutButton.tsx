@@ -8,7 +8,11 @@ const LogoutButton = () => {
     signOut(auth);
   };
 
-  return <Button onClick={handleLogout}>ログアウト</Button>;
+  return (
+    <Button className="bg-white hover:bg-gray-300 text-black font-bold" onClick={handleLogout}>
+      ログアウト
+    </Button>
+  );
 };
 
 export default LogoutButton;

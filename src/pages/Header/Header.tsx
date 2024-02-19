@@ -3,8 +3,6 @@
 import { auth } from '@/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import LogoutButton from '@/components/LogoutButton';
-
 const Header = () => {
   const [user] = useAuthState(auth);
 
@@ -12,15 +10,16 @@ const Header = () => {
     <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
       <h1 className="text-2xl font-bold">Todoリスト</h1>
       <div className="flex items-center">
-        <img src={user!.photoURL!} alt="Googleアカウントのアイコン" className="w-10 h-10 rounded-full" />
-        <p className="ml-3">
+        <p className="mr-3">
           <strong>
             <span>{user?.email}</span>
           </strong>
         </p>
-        <div className="ml-3">
-          <LogoutButton />
-        </div>
+        <img
+          src={user?.photoURL || '../../assets/default_user_icon.png'}
+          alt="Googleアカウントのアイコン"
+          className="w-10 h-10 rounded-full"
+        />
       </div>
     </header>
   );
