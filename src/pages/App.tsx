@@ -14,7 +14,7 @@ const App: React.FC<AppProps> = ({ categories }) => {
       <div className="mb-5">
         <AddToDo categories={categories} />
       </div>
-      <div className="h-[55vh] overflow-auto">
+      <div>
         <ToDoList />
       </div>
     </div>

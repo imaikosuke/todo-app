@@ -31,7 +31,7 @@ export const AppRoutes = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="h-screen flex flex-col">
       <Header />
       <div className="flex flex-grow">
         <Sidebar isSignedIn={isSignedIn} />

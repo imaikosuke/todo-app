@@ -29,7 +29,7 @@ const Category: React.FC<CategoryProps> = ({ categories, onAddCategory, onDelete
       <button onClick={handleAdd} className="mt-2 py-1 px-3 rounded-md bg-blue-500 text-white w-full">
         カテゴリーを追加
       </button>
-      <ul className="mt-4 space-y-2 h-[65vh] overflow-auto">
+      <ul className="mt-4 space-y-2">
         {categories.map((category) => (
           <li key={category} className="flex justify-between items-center border p-2 rounded-md">
             <span>{category}</span>
