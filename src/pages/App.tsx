@@ -4,6 +4,7 @@ import { AddToDo } from '../components/AddToDo';
 import { ToDoList } from '../components/ToDoList';
 import { CategoryManagement } from '../components/CategoryManagement';
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 const App: React.FC = () => {
   const [categories, setCategorys] = useState<string[]>(['仕事', '個人']);
@@ -29,6 +30,7 @@ const App: React.FC = () => {
         <h2 className="mt-4 text-xl font-bold mb-2">タスク</h2>
         <ToDoList />
       </div>
+      <Footer />
     </>
   );
 };
