@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import { ToDoItem } from './ToDoItem';
 import { Todo } from '../interface';
-import { auth, db } from '../firebase';
+import auth from '../firebase';
+import { db } from '../firebase';
 import { collection, doc, query, where, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 

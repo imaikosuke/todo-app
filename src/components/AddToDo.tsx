@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
 import { serverTimestamp } from 'firebase/firestore';
-import { auth } from '../firebase';
+import auth from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 type AddToDoProps = {

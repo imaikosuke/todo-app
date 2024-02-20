@@ -1,6 +1,7 @@
 // src/pages/Login.tsx
 import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../firebase';
+import auth from '../firebase';
+import { provider } from '../firebase';
 import { Button } from '@/components/ui/button';
 
 const Login = () => {

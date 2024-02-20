@@ -14,11 +14,12 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 // const analytics = getAnalytics(app);
 
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
 
-export { auth, provider, db };
+export default auth;
+
+export const db = getFirestore(app);
+export const provider = new GoogleAuthProvider();
