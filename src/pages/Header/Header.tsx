@@ -1,6 +1,6 @@
 // src/pages/Header/Header.tsx
 
-import auth from '@/firebase';
+import auth from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Header = () => {
