@@ -5,7 +5,7 @@ import Header from './Header';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 jest.mock('react-firebase-hooks/auth');
-jest.mock('../../firebase', () => ({
+jest.mock('@/firebase', () => ({
   auth: jest.fn(),
   initializeApp: jest.fn(),
 }));
