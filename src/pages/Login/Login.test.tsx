@@ -3,7 +3,7 @@
 import { render, screen } from '@testing-library/react';
 import Login from './Login';
 
-jest.mock('../firebase', () => ({
+jest.mock('../../firebase', () => ({
   auth: jest.fn(),
   provider: jest.fn(),
 }));
