@@ -1,32 +1,15 @@
 // src/components/TodoList.tsx
-import { useEffect, useState } from 'react';
 import { ToDoItem } from './ToDoItem';
 import { Todo } from '../interface';
-import auth from '../firebase';
 import { db } from '../firebase';
-import { collection, doc, query, where, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import React from 'react';
 
-export const ToDoList = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [user] = useAuthState(auth);
+interface ToDoListProps {
+  todos: Todo[];
+}
 
-  useEffect(() => {
-    if (!user) return;
-    const q = query(collection(db, 'todos'), where('userId', '==', user.uid));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const todosArray = querySnapshot.docs.map(
-        (doc) =>
-          ({
-            id: doc.id,
-            ...doc.data(),
-          } as Todo)
-      );
-      setTodos(todosArray);
-    });
-    return () => unsubscribe();
-  }, [user]);
-
+export const ToDoList: React.FC<ToDoListProps> = ({ todos }) => {
   const onToggleCompleted = async (id: string) => {
     const todoRef = doc(db, 'todos', id);
     const todo = todos.find((todo) => todo.id === id);

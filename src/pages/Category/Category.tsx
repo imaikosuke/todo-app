@@ -27,7 +27,7 @@ const Category: React.FC<CategoryProps> = ({ categories, onAddCategory, onDelete
 
   return (
     <div className="p-4 border shadow-sm bg-gray-100 flex-grow">
-      <h2 className="pb-4 mt-4 text-xl font-bold mb-2">カテゴリ一覧</h2>
+      <h2 className="text-2xl pb-4 mt-4 font-bold mb-2">カテゴリ一覧</h2>
       <input
         type="text"
         value={newCategory}
