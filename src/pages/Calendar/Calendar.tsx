@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-
-// Todoインターフェースのインポート
 import { Todo } from '../../interface';
-
-// テスト用のTodoリスト
-const todos: Todo[] = [
-  { id: '1', createdAt: '2023-02-01', title: 'タスク1', completed: false, dueDate: '2024-02-15' },
-  { id: '2', createdAt: '2023-02-02', title: 'タスク2', completed: false, dueDate: '2024-02-18' },
-];
 
 const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -28,7 +20,11 @@ const generateCalendarDays = (year: number, month: number) => {
   return [...prevMonthDays, ...currentMonthDays];
 };
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  todos: Todo[];
+}
+
+const Calendar: React.FC<CalendarProps> = ({ todos }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth(); // 0-11
@@ -45,13 +41,19 @@ const Calendar: React.FC = () => {
     setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
   };
 
-  const findTodosForDay = (day: number) => {
-    const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(
-      day
-    ).padStart(2, '0')}`;
-    return todos.filter((todo) => todo.dueDate === dateString);
+  const findTodosForDay = (todos: Todo[], year: number, month: number, day: number): Todo[] => {
+    return todos.filter(todo => {
+      if (!todo.dueDate) return false;
+  
+      // タイムスタンプをDateオブジェクトに変換
+      const dueDate = todo.dueDate.toDate();
+  
+      return dueDate.getFullYear() === year && dueDate.getMonth() === month && dueDate.getDate() === day;
+    });
   };
-// p-4 border shadow-sm bg-gray-100 flex-grow
+  
+  
+
   return (
     <div className="p-4 shadow-sm bg-gray-100 flex-grow">
       <h2 className="text-2xl font-bold text-center text-gray-800 py-4">カレンダー</h2>
@@ -77,7 +79,7 @@ const Calendar: React.FC = () => {
           </div>
         ))}
         {days.map((day, index) => {
-          const dayTodos = findTodosForDay(day);
+          const dayTodos = findTodosForDay(todos, currentYear, currentMonth, day);
           const isPrevMonthDay = index < 7 && day > 20; // 前月の日付かどうか
           return (
             <div
@@ -89,7 +91,7 @@ const Calendar: React.FC = () => {
               <div className="text-lg">{day > 0 ? day : ''}</div> {/* 前月の日付を空で表示 */}
               <ul className="mt-2">
                 {dayTodos.map((todo) => (
-                  <li key={todo.id} className="text-xs text-blue-500 truncate">
+                  <li key={todo.id} className="text-base text-blue-500 truncate">
                     {todo.title}
                   </li>
                 ))}
