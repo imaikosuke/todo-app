@@ -22,6 +22,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isSignedIn }) => {
             カテゴリ一覧
           </Link>
         </li>
+        <li>
+          <Link to="/calendar" className="block hover:bg-gray-600 px-2 py-1 rounded">
+            カレンダー表示
+          </Link>
+        </li>
       </ul>
       {isSignedIn && (
         <div className="mt-4">

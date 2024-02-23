@@ -4,12 +4,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import App from './pages/App';
 import Header from './pages/Header/Header';
 import Footer from './pages/Footer/Footer';
 import Sidebar from './pages/Sidebar/Sidebar';
-import Category from './pages/Category';
+import Category from './pages/Category/Category';
+import Calendar from './pages/Calendar/Calendar';
 
 export const AppRoutes = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -18,13 +19,13 @@ export const AppRoutes = () => {
   const onAddCategory = async (category: string) => {
     const newCategories = [...categories, category];
     setCategorys(newCategories);
-    await setDoc(doc(db, 'categories', 'userCategories'), {list: newCategories});
+    await setDoc(doc(db, 'categories', 'userCategories'), { list: newCategories });
   };
 
   const onDeleteCategory = async (category: string) => {
     const newCategories = categories.filter((cat) => cat !== category);
     setCategorys(newCategories);
-    await setDoc(doc(db, 'categories', 'userCategories'), {list: newCategories});
+    await setDoc(doc(db, 'categories', 'userCategories'), { list: newCategories });
   };
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export const AppRoutes = () => {
               )
             }
           />
+          <Route path="/calendar" element={isSignedIn ? <Calendar /> : <Navigate to="/login" />} />
           <Route path="/login" element={!isSignedIn ? <Login /> : <Navigate to="/" />} />
         </Routes>
       </div>
