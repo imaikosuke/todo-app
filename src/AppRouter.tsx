@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from './firebase';
 import Login from './pages/Login';
 import App from './pages/App';
 import Header from './pages/Header/Header';
@@ -13,17 +15,27 @@ export const AppRoutes = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [categories, setCategorys] = useState<string[]>(['仕事', '遊び', 'その他']);
 
-  const onAddCategory = (category: string) => {
-    setCategorys((prev) => [...prev, category]);
+  const onAddCategory = async (category: string) => {
+    const newCategories = [...categories, category];
+    setCategorys(newCategories);
+    await setDoc(doc(db, 'categories', 'userCategories'), {list: newCategories});
   };
 
-  const onDeleteCategory = (category: string) => {
-    setCategorys((prev) => prev.filter((cat) => cat !== category));
+  const onDeleteCategory = async (category: string) => {
+    const newCategories = categories.filter((cat) => cat !== category);
+    setCategorys(newCategories);
+    await setDoc(doc(db, 'categories', 'userCategories'), {list: newCategories});
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
+    const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
       setIsSignedIn(!!user);
+      if (user) {
+        const docSnap = await getDoc(doc(db, 'categories', 'userCategories'));
+        if (docSnap.exists()) {
+          setCategorys(docSnap.data().list);
+        }
+      }
     });
 
     // Clean up subscription on unmount
