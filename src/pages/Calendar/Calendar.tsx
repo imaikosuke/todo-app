@@ -4,20 +4,21 @@ import { Todo } from '../../interface';
 const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
 
 const generateCalendarDays = (year: number, month: number) => {
+  const days = [];
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const daysInPrevMonth = new Date(year, month, 0).getDate();
 
-  // 前月の日付で埋める
-  const prevMonthDays = Array.from({ length: firstDayOfMonth })
-    .map((_, i) => daysInPrevMonth - i)
-    .reverse();
+  // 前月の日付を追加
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    days.push({ day: null, isCurrentMonth: false });
+  }
 
-  // 今月の日付
-  const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  // 今月の日付を追加
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push({ day: i, isCurrentMonth: true });
+  }
 
-  // 合わせて返す
-  return [...prevMonthDays, ...currentMonthDays];
+  return days;
 };
 
 interface CalendarProps {
@@ -42,17 +43,15 @@ const Calendar: React.FC<CalendarProps> = ({ todos }) => {
   };
 
   const findTodosForDay = (todos: Todo[], year: number, month: number, day: number): Todo[] => {
-    return todos.filter(todo => {
+    return todos.filter((todo) => {
       if (!todo.dueDate) return false;
-  
+
       // タイムスタンプをDateオブジェクトに変換
       const dueDate = todo.dueDate.toDate();
-  
+
       return dueDate.getFullYear() === year && dueDate.getMonth() === month && dueDate.getDate() === day;
     });
   };
-  
-  
 
   return (
     <div className="p-4 shadow-sm bg-gray-100 flex-grow">
@@ -78,17 +77,17 @@ const Calendar: React.FC<CalendarProps> = ({ todos }) => {
             {day}
           </div>
         ))}
-        {days.map((day, index) => {
-          const dayTodos = findTodosForDay(todos, currentYear, currentMonth, day);
-          const isPrevMonthDay = index < 7 && day > 20; // 前月の日付かどうか
+        {days.map(({ day, isCurrentMonth }, index) => {
+          // 現在の月に属する日付のみタスクを検索
+          const dayTodos = isCurrentMonth ? findTodosForDay(todos, currentYear, currentMonth, day!) : [];
           return (
             <div
               key={index}
               className={`p-4 border border-gray-200 flex flex-col justify-between items-center bg-white rounded-lg shadow min-h-[113px] ${
-                isPrevMonthDay ? 'text-gray-400' : 'text-gray-800'
+                !isCurrentMonth ? 'text-gray-400' : 'text-gray-800'
               } overflow-auto`}
             >
-              <div className="text-lg">{day > 0 ? day : ''}</div> {/* 前月の日付を空で表示 */}
+              <div className="text-lg">{day}</div>
               <ul className="mt-2">
                 {dayTodos.map((todo) => (
                   <li key={todo.id} className="text-base text-blue-500 truncate">
