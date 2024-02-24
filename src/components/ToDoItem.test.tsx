@@ -2,6 +2,7 @@
 
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ToDoItem } from './ToDoItem';
+import { Timestamp } from 'firebase/firestore';
 
 jest.mock('../firebase', () => ({
   auth: jest.fn(),
@@ -16,6 +17,7 @@ describe('ToDoItem', () => {
     title: 'テストタスク',
     completed: false,
     category: '仕事',
+    dueDate: Timestamp.fromDate(new Date()),
     createdAt: new Date().toISOString(),
   };
 
@@ -23,9 +25,17 @@ describe('ToDoItem', () => {
     render(<ToDoItem todo={todo} onToggleCompleted={mockOnToggleCompleted} onDelete={mockOnDelete} />);
   });
 
-  test('タスクのタイトルとカテゴリーが表示される', () => {
-    const taskTitle = screen.getByText('テストタスク - 仕事');
+  test('タスクのタイトル、カテゴリー、期日が表示される', () => {
+    const taskTitle = screen.getByText(todo.title);
+    const taskCategory = screen.getByText(todo.category);
+    const taskDueDate = screen.getByText(
+      todo.dueDate
+        .toDate()
+        .toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }) // 余りを0埋め
+    );
     expect(taskTitle).toBeInTheDocument();
+    expect(taskCategory).toBeInTheDocument();
+    expect(taskDueDate).toBeInTheDocument();
   });
 
   test('完了ボタンをクリックするとonToggleCompletedが呼び出される', () => {
