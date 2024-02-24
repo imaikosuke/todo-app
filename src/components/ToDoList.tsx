@@ -23,14 +23,15 @@ export const ToDoList: React.FC<ToDoListProps> = ({ todos }) => {
   };
 
   return (
-    <div>
+    <div className="mt-4">
+      <div className="grid grid-cols-4 text-center p-4 bg-gray-200 rounded-t-lg">
+        <span className="font-bold">タスク名</span>
+        <span className="font-bold">カテゴリー</span>
+        <span className="font-bold">期日</span>
+        <span className="font-bold">操作</span>
+      </div>
       {todos.map((todo) => (
-        <ToDoItem
-          key={todo.id}
-          todo={todo}
-          onToggleCompleted={() => onToggleCompleted(todo.id)}
-          onDelete={() => onDelete(todo.id)}
-        />
+        <ToDoItem key={todo.id} todo={todo} onToggleCompleted={onToggleCompleted} onDelete={onDelete} />
       ))}
     </div>
   );
