@@ -88,7 +88,7 @@ const Calendar: React.FC<CalendarProps> = ({ todos }) => {
               } overflow-auto`}
             >
               <div className="text-lg">{day}</div>
-              <ul className="mt-2">
+              <ul className="mt-2 font-bold">
                 {dayTodos.map((todo) => (
                   <li key={todo.id} className="text-base text-blue-500 truncate">
                     {todo.title}
