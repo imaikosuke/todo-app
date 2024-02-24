@@ -11,13 +11,18 @@ type AddToDoProps = {
   categories: string[];
 };
 
-const addTodoToFirestore = async (title: string, category: string, dueDate: Date, userId: string) => {
+const addTodoToFirestore = async (
+  title: string,
+  category: string,
+  dueDate: Date | null,
+  userId: string
+) => {
   await addDoc(collection(db, 'todos'), {
     title,
-    completed: false,
+    complited: false,
     category,
-    dueDate,
     userId,
+    dueDate: dueDate ? dueDate : null,
     createdAt: serverTimestamp(),
   });
 };
@@ -30,7 +35,7 @@ export const AddToDo: React.FC<AddToDoProps> = ({ categories }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!title || !user || !dueDate) return;
+    if (!title || !user) return;
     await addTodoToFirestore(title, category, dueDate, user.uid);
     setTitle('');
     setCategory('');
@@ -76,5 +81,5 @@ export const AddToDo: React.FC<AddToDoProps> = ({ categories }) => {
         タスクを追加
       </button>
     </form>
-  );  
+  );
 };
