@@ -2,7 +2,7 @@
 
 # SPAのカレンダー機能付きTodoアプリケーション
 
-![アプリケーションのサムネイル画像](https://drive.google.com/uc?export=view&id=1_KskKbsoHYOImOK5LnEBhMIks43FwSVu)
+![アプリケーションのサムネイル画像](https://drive.google.com/uc?export=view&id=1fHMKHMizwZkvWAsZMPnXMVJgrRg9TDe6)
 
 
 ## 使用技術一覧
@@ -12,9 +12,9 @@
 <img src="https://img.shields.io/badge/-Typescript-000080.svg?logo=typescript&style=flat-square">
 <img src="https://img.shields.io/badge/-React-1e90ff.svg?logo=react&style=flat-square">
 <img src="https://img.shields.io/badge/-TailwindCSS-4169e1.svg?logo=TailwindCSS&style=flat-square">
-<img src="https://img.shields.io/badge/-Firebase-ffa500.svg?logo=firebase&style=flat-square">
 <img src="https://img.shields.io/badge/-Jest-b22222.svg?logo=Jest&style=flat-square">
 <img src="https://img.shields.io/badge/-Testing%20Library-800000.svg?logo=testing%20library&style=flat-square">
+<img src="https://img.shields.io/badge/-Firebase-ffa500.svg?logo=firebase&style=flat-square">
 <img src="https://img.shields.io/badge/-GitHub%20Actions-333333.svg?logo=github%20actions&style=flat-square">
 </p>
 
