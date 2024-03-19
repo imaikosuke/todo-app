@@ -21,29 +21,30 @@ export const AppRoutes = () => {
   const [categories, setCategorys] = useState<string[]>(['仕事', '遊び', 'その他']);
 
   const onAddCategory = async (category: string) => {
+    if (!user) return;
     const newCategories = [...categories, category];
     setCategorys(newCategories);
-    await setDoc(doc(db, 'categories', 'userCategories'), { list: newCategories });
+    await setDoc(doc(db, 'categories', user.uid), { list: newCategories });
   };
 
   const onDeleteCategory = async (category: string) => {
+    if (!user) return;
     const newCategories = categories.filter((cat) => cat !== category);
     setCategorys(newCategories);
-    await setDoc(doc(db, 'categories', 'userCategories'), { list: newCategories });
+    await setDoc(doc(db, 'categories', user.uid), { list: newCategories });
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
       setIsSignedIn(!!user);
       if (user) {
-        const docSnap = await getDoc(doc(db, 'categories', 'userCategories'));
+        const docSnap = await getDoc(doc(db, 'categories', user.uid));
         if (docSnap.exists()) {
           setCategorys(docSnap.data().list);
         }
       }
     });
 
-    // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
 
@@ -71,7 +72,9 @@ export const AppRoutes = () => {
         <Routes>
           <Route
             path="/"
-            element={isSignedIn ? <App todos={todos} categories={categories} /> : <Navigate to="/login" />}
+            element={
+              isSignedIn ? <App todos={todos} categories={categories} /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/category"
@@ -87,7 +90,10 @@ export const AppRoutes = () => {
               )
             }
           />
-          <Route path="/calendar" element={isSignedIn ? <Calendar todos={todos} /> : <Navigate to="/login" />} />
+          <Route
+            path="/calendar"
+            element={isSignedIn ? <Calendar todos={todos} /> : <Navigate to="/login" />}
+          />
           <Route path="/login" element={!isSignedIn ? <Login /> : <Navigate to="/" />} />
         </Routes>
       </div>
