@@ -34,6 +34,7 @@ export const AppRoutes = () => {
     await setDoc(doc(db, 'categories', user.uid), { list: newCategories });
   };
 
+  // ユーザー認証状態の監視とカテゴリーの取得
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), async (user) => {
       setIsSignedIn(!!user);
@@ -48,6 +49,7 @@ export const AppRoutes = () => {
     return () => unsubscribe();
   }, []);
 
+  // ユーザーが存在する場合にTodoリストを取得
   useEffect(() => {
     if (!user) return;
     const q = query(collection(db, 'todos'), where('userId', '==', user.uid));

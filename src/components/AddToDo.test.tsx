@@ -10,7 +10,6 @@ jest.mock('../firebase', () => ({
   provider: jest.fn(),
 }));
 
-// 'react-firebase-hooks/auth'をモック化
 jest.mock('react-firebase-hooks/auth', () => ({
   useAuthState: () => [{ uid: 'testUid' }, false, undefined],
 }));

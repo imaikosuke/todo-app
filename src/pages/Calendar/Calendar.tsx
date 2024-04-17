@@ -42,11 +42,12 @@ const Calendar: React.FC<CalendarProps> = ({ todos }) => {
     setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
   };
 
+  // タスクの期日とカレンダーの日付が一致するタスクを検索
   const findTodosForDay = (todos: Todo[], year: number, month: number, day: number): Todo[] => {
     return todos.filter((todo) => {
       if (!todo.dueDate) return false;
 
-      // タイムスタンプをDateオブジェクトに変換
+      // FirebaseのTimestampをDateオブジェクトに変換
       const dueDate = todo.dueDate.toDate();
 
       return dueDate.getFullYear() === year && dueDate.getMonth() === month && dueDate.getDate() === day;
@@ -78,7 +79,6 @@ const Calendar: React.FC<CalendarProps> = ({ todos }) => {
           </div>
         ))}
         {days.map(({ day, isCurrentMonth }, index) => {
-          // 現在の月に属する日付のみタスクを検索
           const dayTodos = isCurrentMonth ? findTodosForDay(todos, currentYear, currentMonth, day!) : [];
           return (
             <div

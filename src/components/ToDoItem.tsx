@@ -16,6 +16,7 @@ export const ToDoItem: React.FC<ToDoItemProps> = ({ todo, onToggleCompleted, onD
   const [editText, setEditText] = useState(todo.title);
 
   const handleEdit = async (newTitle: string) => {
+    // 編集中の場合はFirestoreのデータを更新
     if (isEditing) {
       const todoRef = doc(db, 'todos', todo.id);
       await updateDoc(todoRef, { title: newTitle });
@@ -27,6 +28,7 @@ export const ToDoItem: React.FC<ToDoItemProps> = ({ todo, onToggleCompleted, onD
     setEditText(event.target.value);
   };
 
+  // FirebaseのTimestamp型をフォーマット
   const formattedDueDate = todo.dueDate ? format(todo.dueDate.toDate(), 'yyyy/MM/dd') : '';
 
   return (
